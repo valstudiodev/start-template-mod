@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'node:path'
 
-const isGitHub = process.env.GITHUB_PAGES_BUILD === "true";
+// const isGitHub = process.env.GITHUB_PAGES_BUILD === "true";
 
 export default defineConfig({
-  // base: '/start-template-mod/', // назва репозиторію GitHub
-  base: isGitHub ? "/start-template-mod/" : "/",
+  base: '/start-template-mod/', // назва репозиторію GitHub
+  // base: isGitHub ? "/start-template-mod/" : "/",
 
   build: {
     rollupOptions: {
