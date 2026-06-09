@@ -1,7 +1,5 @@
-// export const initContactsPage = (): void => {
-//   console.log('Contacts page initialized')
-// }
-import "../../styles/main.scss"
+import "./contacts.scss"
 
-import { bootstrap } from '@app/bootstrap'
-bootstrap()
+export { initContactsPage } from "./contacts"
+
+console.log('Contacts page loaded');

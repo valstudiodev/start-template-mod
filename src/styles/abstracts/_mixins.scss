@@ -1,0 +1,813 @@
+@use "sass:math";
+
+@mixin hover {
+   html[data-input="mouse"] & {
+      &:hover {
+         @content;
+      }
+   }
+}
+@mixin tap {
+   html[data-input="touch"] &,
+   html[data-input="pen"] & {
+      &:active {
+         @content;
+      }
+   }
+}
+@mixin focus {
+   html[data-input="keyboard"] & {
+      &:focus-visible {
+         @content;
+      }
+   }
+}
+// ===========================================================================================
+// -----------------------------
+// default
+// -----------------------------
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@mixin iconArrow (
+   $font-size:null,
+   $width: null,
+   $aspect-ratio: 1,
+   $border: null solid null,
+   $border-radius:50%,
+   $display:flex,
+   $align-items:center,
+   $justify-content: center,) {
+border-radius: $border-radius;
+display: $display;
+align-items: $align-items;
+justify-content: $justify-content;
+aspect-ratio: $aspect-ratio;
+}
+// ===========================================================================================
+// -----------------------------
+// customize-bullets
+// -----------------------------
+@mixin customize-bullets(
+   $active-color,
+   $inactive-border-color: #fff,
+   $size: 12px,
+   $gap: 8px,
+   $scale-active: 1,
+   $border: none,
+   $background: transparent,
+   $sizeBefore: 10px)
+{
+   display: flex;
+   justify-content: center;
+   gap: $gap;
+   position: static;
+
+   .swiper-pagination-bullet {
+      width: $size;
+      height: $size;
+      border: $border solid $inactive-border-color;
+      background: $background;
+      position: relative;
+      opacity: 1;
+      box-sizing: border-box;
+      cursor: pointer;
+      margin: 0 !important;
+      transition:
+         background-color 0.3s ease,
+         border-color 0.3s ease,
+         transform 0.3s ease;
+
+      // Збільшуємо зону кліку до 44px (рекомендація Apple/Google)
+      &::before {
+         content: '';
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: $sizeBefore;
+         height: $sizeBefore;
+      }
+
+      &.swiper-pagination-bullet-active {
+         background-color: $active-color;
+         border-color: $active-color;
+         transform: scale($scale-active);
+      }
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// buttons
+// -----------------------------
+@mixin icon-menu (
+  $width,
+  $height,
+  $side: right,
+  $middle-width: 100%,
+  $pseudo-width:100%,
+  $duration: 0,
+  $color:#000,
+  $thickness: 3px,
+  $radius: 10px,
+  $transition: 0.3s) 
+{
+  position: relative;
+  width: $width;
+  height: $height;
+  z-index: 10;
+  flex-shrink: 0;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    #{$side}: 0;
+    width: $pseudo-width;
+    height: $thickness;
+    border-radius: $radius;
+    background-color: $color;
+    transition:  $transition ease,
+                background-color $transition ease;
+  }
+  &::before {
+    top: 0;
+  }
+  &::after {
+    bottom: 0;
+  }
+
+  span {
+    position: absolute;
+    top: 50%;
+    #{$side}: $duration;
+    translate: 0 -50%;
+    background-color: $color;
+    width: $middle-width;
+    height: $thickness;
+    border-radius: $radius;
+    transition: transform $transition ease,
+                width $transition ease,
+                background-color $transition ease;
+  }
+
+  .menu-open & {
+    &::before {
+         top: 50%;
+         rotate: 45deg;
+         translate: 0 -50%;
+      }
+      &::after {
+         top: 50%;
+         rotate: -45deg;
+         translate: 0 -50%;
+      }
+      span {
+         width: 0;
+      }
+  }
+}
+
+@mixin buttonMore($width: 40px,
+   $line-height: 2px,
+   $color: white,
+   $hover-color: black,
+   $transition: 0.3s,
+   $radius: 0,
+   $aspect: 1,
+   $ease: cubic-bezier(0.4, 0, 0.2, 1),
+   $type: "plus" // Додаємо параметр: "plus" або "cross"
+
+) {
+   width: $width;
+   aspect-ratio: $aspect;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   will-change: transform;
+   transition: transform $transition $ease;
+
+   span {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: $line-height;
+      background-color: $color;
+      transition: background-color $transition ease, transform $transition $ease;
+      will-change: transform;
+      border-radius: $radius;
+      transform: rotate(0);
+
+      &::after {
+         content: "";
+         // @include abs-center;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%) rotate(90deg);
+         width: 100%;
+         height: $line-height; // Використовуємо ту саму товщину
+         background-color: inherit; // Колір буде таким самим, як у span
+         border-radius: $radius;
+         will-change: transform;
+         transition: transform $transition $ease;
+      }
+   }
+
+   @include hover {
+      transform: scale(1.05); // Легка пульсація (збільшення)
+
+      span {
+         background-color: $hover-color; // Зміна кольору обох ліній
+      }
+   }
+
+   &.icon-active {
+      span {
+         @if $type =="cross" {
+            transform: rotate(45deg); // Для хрестика повертаємо на 45
+         }
+
+         @else {
+            transform: rotate(0); // Для звичайного плюса (мінус)
+         }
+
+         &::after {
+            @if $type =="cross" {
+               transform: translate(-50%, -50%) rotate(90deg);
+            }
+
+            @else {
+               transform: translate(-50%, -50%) rotate(0deg);
+            }
+         }
+      }
+
+      &:focus {
+         span {
+            background-color: $hover-color;
+         }
+      }
+   }
+}
+
+// Визначаємо міксін з базовими значеннями
+@mixin button-base(
+  $bg-color: #3498db,
+  $text-color: #ffffff,
+  $padding: 10px 20px,
+  $border-radius: 6px,
+  $font-size: 16px,
+  $border: none,
+  $display: inline-flex
+) {
+  display: $display;
+  align-items: center;
+  justify-content: center;
+  padding: $padding;
+  background-color: $bg-color;
+  color: $text-color;
+  border-radius: $border-radius;
+  border: $border;
+  font-size: $font-size;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none; // Якщо кнопка буде тегом <a>
+  transition: all 0.2s ease-in-out;
+
+  // Базовий ефект при наведенні (легке затемнення)
+  &:hover {
+    background-color: darken($bg-color, 8%);
+    @if $border != none {
+      border-color: darken($bg-color, 8%);
+    }
+  }
+
+  // Ефект при кліку
+  &:active {
+    transform: scale(0.98);
+  }
+
+  // Стан вимкненої кнопки
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #cccccc;
+    color: #666666;
+  }
+}
+
+// ===========================================================================================
+// -----------------------------
+// background
+// -----------------------------
+@mixin img-bg-cover($url) {
+
+   &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url($url) center / cover no-repeat;
+   }
+}
+@mixin overlay($color: black, $opacity: 0.5) {
+
+   &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color, $opacity);
+      z-index: 1;
+   }
+}
+@mixin overlay-gradient($color: black, $opacity-start: 0.8, $opacity-end: 0.2) {
+   position: relative;
+
+   &::after {
+      content: "";
+      position: absolute;
+      inset: 0; // Це скорочення для top, left, width 100%, height 100%
+      background: linear-gradient(to bottom,
+            rgba($color, $opacity-start),
+            rgba($color, $opacity-end));
+      z-index: 1;
+   }
+}
+@mixin overlay-hover($color, $transition: 0.4s) {
+   position: relative;
+
+   &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background: $color;
+      transition: opacity $transition ease;
+      z-index: 1;
+   }
+
+   @include hover {
+      &::before {
+         opacity: 1;
+      }
+   }
+}
+@mixin overlay-rotate(
+   $display: block,
+   $color: black,
+   $opacity: 0.5,
+   $rotate: 0deg,
+   $transition: 0.4s ease-in-out,
+   $origin: center,
+
+   // Position control
+   $top: null,
+   $right: null,
+   $bottom: null,
+   $left: null
+)
+   {
+   position: relative;
+   overflow: hidden;
+   display: $display;
+
+   &::after {
+      content: "";
+      position: absolute;
+
+      // Positioning logic
+      @if $top !=null {
+         top: $top;
+      }
+
+      @if $right !=null {
+         right: $right;
+      }
+
+      @if $bottom !=null {
+         bottom: $bottom;
+      }
+
+      @if $left !=null {
+         left: $left;
+      }
+
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-color: rgba($color, $opacity);
+      transform: rotate($rotate);
+      transform-origin: $origin;
+      transition: transform $transition,opacity $transition;
+      will-change: transform;
+   }
+
+   @include hover {
+      &::after {
+         transform: rotate(calc($rotate + 180deg));
+         opacity: 1;
+      }
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// flex / grid
+// -----------------------------
+@mixin flex-center-horizont ($justify-content)  {
+   display: flex;
+   justify-content: $justify-content;
+   align-items: center;
+}
+@mixin flex-center-vertical ($align-items) {
+   display: flex;
+   flex-direction: column;
+   align-items: $align-items;
+}
+@mixin flexbox-items-adaptive($justify:space-between,$align:center,$wrap:nowrap) {
+   display: flex;
+   justify-content: $justify;
+   align-items: $align;
+   flex-wrap: $wrap;
+}
+@mixin grid-adaptive($size,$auto:auto-fill,$align:start,$justify:start) {
+   display: grid;
+   grid-template-columns: repeat($auto, minmax(min($size, 100%), 1fr));
+   align-items: $align;
+   justify-items: $justify;
+   grid-template-rows: auto;
+}
+
+@mixin flex-link-arrow($display: inline-flex,
+   $direction: row-reverse,
+   $gap: 0) {
+   display: $display;
+   align-items: center;
+   flex-direction: $direction;
+   gap: $gap;
+}
+
+// ===========================================================================================
+// -----------------------------
+// effects
+// -----------------------------
+@mixin card-style($bg, $radius: 10px, $shadow-color: rgba(0, 0, 0, 0.5)) {
+   border-radius: $radius;
+   box-shadow: 0 4px 10px $shadow-color;
+   background-color: $bg;
+}
+
+@mixin link-style($main-color, $hover-color) {
+   color: $main-color;
+   transition: color 0.3s ease;
+
+   @include hover {
+      color: $hover-color;
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// positions
+// -----------------------------
+@mixin abs-center {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+@mixin abs-pos($top: null, $right: null, $bottom: null, $left: null) {
+   position: absolute;
+
+   @if ($top !=null) {
+      top: $top
+   }
+
+   @if ($right !=null) {
+      right: $right
+   }
+
+   @if ($bottom !=null) {
+      bottom: $bottom
+   }
+
+   @if ($left !=null) {
+      left: $left
+   }
+}
+// ===========================================================================================
+// -----------------------------
+// hover effects
+// -----------------------------
+@mixin link-hover($height, $color, $left, $translate, $bottom:0) {
+   position: relative;
+
+   &::after {
+      content: "";
+      height: $height;
+      background-color: $color;
+      position: absolute;
+      bottom: $bottom;
+      left: $left;
+      translate: $translate $translate;
+      width: 0;
+      transition: width 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+   }
+
+   @include hover {
+      &::after {
+         width: 100%;
+         opacity: 1;
+      }
+   }
+}
+@mixin link-hover-underline($height, $color) {
+   position: relative;
+
+   &::after {
+      content: "";
+      height: $height;
+      background-color: $color;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+   }
+
+   @include hover {
+      &::after {
+         opacity: 1;
+      }
+   }
+}
+// ===========================================================================================
+// -----------------------------
+// default
+// -----------------------------
+@mixin default-border($width: 1px, $style: solid, $color: #000) {
+   border: $width $style $color;
+}
+@mixin square-icon($width, $radius: 50%) {
+   width: $width;
+   aspect-ratio: 1;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: $radius;
+}
+@mixin pseudo($display: block, $pos: absolute) {
+   content: "";
+   display: $display;
+   position: $pos;
+}
+@mixin transition($props...) {
+   transition: $props 0.3s ease;
+}
+
+@mixin line-clamp($lines: 3) {
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: $lines;
+   overflow: hidden;
+}
+
+@mixin mirror($axis: x) {
+   @if $axis ==x {
+      transform: scaleX(-1);
+   }
+
+   @else if $axis ==y {
+      transform: scaleY(-1);
+   }
+
+   @else if $axis ==both {
+      transform: scale(-1);
+   }
+}
+
+@mixin spacer ($top: null, $right: null, $bottom: null, $left: null, $type: padding) {
+   @if $top !=null {
+      #{$type}-top: $top;
+   }
+
+   @if $right !=null {
+      #{$type}-right: $right;
+   }
+
+   @if $bottom !=null {
+      #{$type}-bottom: $bottom;
+   }
+
+   @if $left !=null {
+      #{$type}-left: $left;
+   }
+}
+
+@mixin font-box($size, $weight: null, $lh: null) {
+   font-size: $size;
+
+   @if $weight !=null {
+      font-weight: $weight;
+   }
+
+   @if $lh !=null {
+      line-height: $lh;
+   }
+}
+
+// ===========================================================================================
+// -----------------------------
+// animations
+// -----------------------------
+@mixin reveal($translate: (0, 30px), $duration: 0.8s, $delay: 0s) {
+   opacity: 0;
+   will-change: transform, opacity;
+
+   @if length($translate)==2 {
+      transform: translate(nth($translate, 1), nth($translate, 2));
+   }
+
+   transition: transform $duration ease $delay,
+   opacity $duration ease $delay;
+
+   &.animate {
+      opacity: 1;
+      transform: translate(0, 0);
+   }
+}
+@mixin popIn($duration: 0.6s,
+   $delay: 0s,
+   $start-scale: 0.2,
+   $origin: center,
+   $will-change: true) {
+   opacity: 0;
+   transform: scale($start-scale);
+   transform-origin: $origin;
+
+   @if $will-change {
+      will-change: transform, opacity;
+   }
+
+   transition: opacity $duration ease $delay,
+   transform $duration cubic-bezier(0.34, 1.56, 0.64, 1) $delay;
+
+   &.animate {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+@mixin stagger($count: 20, $delay-step: 0.1s, $start-delay: 0s) {
+   @for $i from 1 through $count {
+      &:nth-child(#{$i}) {
+         transition-delay: $start-delay + ($i - 1) * $delay-step;
+      }
+   }
+}
+@mixin appearanceOpacity ($transition: 0.6s) {
+   opacity: 0;
+   transition: opacity $transition ease;
+
+   &.animate {
+      opacity: 1;
+   }
+}
+
+
+
+// ===========================================================================================
+// -----------------------------
+// forms elements
+// -----------------------------
+@mixin checkbox(
+  $input-class: "checkbox__input", 
+  $size: 20px,
+  $inner-size: 50%,        // Для радіо — розмір крапки, для чекбокса — галочки
+  $radius: 4px,
+  $border-width: 2px,
+
+  $border: #c4c4c4,
+  $bg: #fff,
+
+  // Універсальний колір акценту (для чекбокса це буде фон, для радіо — обідок і крапка)
+  $accent-color: #84D187, 
+  $check-color: #fff,      // Колір самої галочки в чекбоксі
+
+  $is-radio: false,        
+  $transition: .25s
+) {
+
+  // АВТО-ЛОГІКА КОЛЬОРІВ:
+  // Якщо це РАДІО:
+  // 1. Обідок при кліку стає акцентним ($accent-color)
+  // 2. Фон залишається білим ($bg)
+  // 3. Крапка всередині стає акцентною ($accent-color)
+  $final-checked-border: $accent-color;
+  $final-checked-bg: if($is-radio, $bg, $accent-color);
+  $final-inner-color: if($is-radio, $accent-color, $check-color);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  .#{$input-class} {
+    appearance: none;
+    position: relative;
+
+    width: $size;
+    height: $size;
+    margin: 0;
+    flex-shrink: 0;
+
+    border: $border-width solid $border;
+    border-radius: if($is-radio, 50%, $radius); 
+    background: $bg;
+
+    transition:
+      background-color $transition ease,
+      border-color $transition ease,
+      transform $transition ease;
+
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      @if $is-radio {
+        width: $inner-size;   
+        height: $inner-size;
+        background-color: $final-inner-color; // Використовуємо розумний колір
+        border-radius: 50%;
+
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform $transition ease, opacity $transition ease;
+      } @else {
+        width: calc($inner-size * 0.7); 
+        height: calc($inner-size * 1.2);
+        
+        border-right: 2px solid $final-inner-color; // Використовуємо розумний колір
+        border-bottom: 2px solid $final-inner-color;
+
+        transform: translate(-50%, -60%) rotate(45deg) scale(0);
+        transition: transform $transition ease, opacity $transition ease;
+      }
+
+      opacity: 0;
+    }
+
+    &:checked {
+      background: $final-checked-bg;       // Авто-фон
+      border-color: $final-checked-border; // Авто-обідок
+
+      &::after {
+        opacity: 1;
+
+        @if $is-radio {
+          transform: translate(-50%, -50%) scale(1);
+        } @else {
+          transform: translate(-50%, -60%) rotate(45deg) scale(1);
+        }
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba($accent-color, .4);
+      outline-offset: 2px;
+    }
+  }
+}
+
+@mixin hide-input {
+  appearance: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}

@@ -1,9 +1,7 @@
-// export const initAboutPage = (): void => {
-//   console.log('About page initialized')
-// }
-import "../../styles/main.scss"
+import "./about.scss"
 
-import { bootstrap } from '@app/bootstrap'
-bootstrap()
+export { initAboutPage } from './about'
+
+console.log('About page loaded');
 
 

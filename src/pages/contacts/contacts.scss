@@ -1,0 +1,9 @@
+@use "sass:math";
+// @use "../../styles/abstracts/functions" as *;
+// @use "../../styles/settings/settings" as *;
+// @use "../../styles/abstracts/mixins" as *;
+
+[data-page="contacts"] {
+  background-color: lightgreen;
+  color: grey;
+}

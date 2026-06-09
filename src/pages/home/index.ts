@@ -1,6 +1,6 @@
-// export const initHomePage = (): void => {
-//   console.log('Home page initialized')
-// }
+import "./home.scss"
 
-import { bootstrap } from '@app/bootstrap'
-bootstrap()
+export { initHomePage } from "./home"
+
+console.log('Home page loaded');
+

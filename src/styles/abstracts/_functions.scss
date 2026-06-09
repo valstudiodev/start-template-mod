@@ -1,0 +1,31 @@
+@use "sass:math";
+
+// ===========================================================================================
+// -----------------------------
+// PERSENT / REM / EM
+// -----------------------------
+//Percent
+@function percent($px, $from: 100) {
+   $result: math.div($px, $from) * 100%;
+   @return $result;
+}
+
+//REM
+@function toRem($px, $current: 16) {
+   $result: math.div($px, $current) + rem;
+   @return $result;
+}
+
+//EM
+@function toEm($px, $current: 16) {
+   $result: math.div($px, $current) + em;
+   @return $result;
+}
+
+//letter-spacing
+@function ls($value) {
+   // Видаляємо одиниці виміру (якщо передано 15%, отримаємо просто 15)
+   $unitless-value: math.div($value, ($value * 0 + 1));
+   // Повертаємо значення в em (15 / 100 = 0.15em)
+   @return math.div($unitless-value, 100) * 1em;
+}

@@ -1,0 +1,75 @@
+@use "sass:math";
+@use '../settings/settings' as *;
+@use '../abstracts/functions' as *;
+
+// ===========================================================================================
+// -----------------------------
+// body-styles
+// -----------------------------
+body {
+   font-family: "Poppins", sans-serif;
+   line-height: 1.5;
+   color: #000;
+
+   &.scroll-lock {
+      overflow: clip;
+      touch-action: none;
+      overscroll-behavior: none;
+
+      &.menu-open {
+         overflow: clip;
+      }
+   }
+}
+.wrapper {
+   min-height: 100%;
+   display: flex;
+   flex-direction: column;
+   overflow: clip;
+
+   >main {
+      flex-grow: 1;
+   }
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+header {
+  padding-block: 30px;
+}
+
+ul {
+  display: flex;
+  font-size: 22px;
+  align-items: center;
+  gap: 50px;
+}
+
+
+// ===========================================================================================
+// -----------------------------
+// class
+// -----------------------------
+[class*="__container"] {
+   max-width: toRem($containerWidth);
+   padding-inline: toRem(math.div($containerPadding, 2));
+   margin: 0 auto;
+}
+[class*="__container-sm"] {
+  max-width: toRem(1000);
+  padding-inline: toRem(math.div($containerPadding, 2));
+  margin: 0 auto;
+}
+[class*="__container-med"] {
+  max-width: toRem(1230);
+  padding-inline: toRem(math.div($containerPadding, 2));
+  margin: 0 auto;
+}
+[class*="__container-big"] {
+  max-width: toRem(1420);
+  padding-inline: toRem(math.div($containerPadding, 2));
+  margin: 0 auto;
+}
