@@ -39,3 +39,25 @@
 export function bootstrap(): void {
   console.log('shared init logic')
 }
+
+// import { initHomePage } from '../pages/home';
+// import { initAboutPage } from '../pages/about';
+// import { initContactsPage } from '../pages/contacts';
+
+// export function bootstrap(): void {
+//   const page = document.body.dataset.page;
+
+//   switch (page) {
+//     case 'home':
+//       initHomePage();
+//       break;
+
+//     case 'about':
+//       initAboutPage();
+//       break;
+
+//     case 'contacts':
+//       initContactsPage();
+//       break;
+//   }
+// }
