@@ -3,6 +3,9 @@
     "target": "es2023",
     "module": "esnext",
     "ignoreDeprecations": "6.0",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     "lib": [
       "ES2023",
       "DOM"

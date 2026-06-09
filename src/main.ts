@@ -4,7 +4,7 @@
 // import styles
 // Ідея: це міст між Vite і твоєю архітектурою.
 
-import './app';
+import './app/init';
 import './styles/main.scss'
 
 import { initApp } from '@app/init'
