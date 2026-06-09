@@ -1,0 +1,1 @@
+import{t as e}from"./initApp-oExqpoKm.js";e();
