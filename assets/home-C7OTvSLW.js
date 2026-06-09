@@ -1,1 +1,0 @@
-import{t as e}from"./main-DuxneVEf.js";e(),console.log(`App initialized`),console.log(`alias works`);
