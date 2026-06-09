@@ -2,20 +2,24 @@
 
 
 // ============== settings ==============
+@use './settings/dataAttributes';
 @use './settings/reset';
 @use './settings/settings';
-
 // ===========================================
 // ====================Base===================
 // ===========================================
+@use './base/fonts';
 @use './base/style';
+@use './base/typography';
 // ===========================================
 // ================Abstracts==================
 // ===========================================
 @use './abstracts/functions';
 @use './abstracts/mixins';
-
-// ============== pages ==============
+@use './abstracts/variables';
+// ===========================================
+// ================pages==================
+// ===========================================
 @use '../pages/about/about.scss';
 @use '../pages/home/home.scss';
 @use '../pages/contacts/contacts.scss';

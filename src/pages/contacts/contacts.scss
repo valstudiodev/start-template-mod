@@ -1,9 +1,12 @@
 @use "sass:math";
-// @use "../../styles/abstracts/functions" as *;
-// @use "../../styles/settings/settings" as *;
-// @use "../../styles/abstracts/mixins" as *;
 
 [data-page="contacts"] {
   background-color: lightgreen;
   color: grey;
+}
+
+.btn-cont {
+  background-color: blue;
+  padding: 20px;
+  color: white;
 }
