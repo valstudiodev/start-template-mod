@@ -1,0 +1,1 @@
+function e(){console.log(`About page loaded`),document.querySelector(`#about-btn`)?.addEventListener(`click`,()=>{console.log(`click`)})}export{e as initAboutPage};
