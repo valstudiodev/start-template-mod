@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => ({
       '@components': resolve(__dirname, './src/components'),
       '@shared': resolve(__dirname, './src/shared'),
       '@assets': resolve(__dirname, './src/assets'),
+      '@widgets': resolve(__dirname, './src/widgets')
     },
   },
 }));

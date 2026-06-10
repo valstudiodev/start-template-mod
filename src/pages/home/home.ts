@@ -1,7 +1,4 @@
 export function initHomePage(): void {
-  const btn = document.querySelector(`.btn`) as HTMLButtonElement
+  console.log('Home page loaded');
 
-  btn?.addEventListener('click', () => {
-    console.log('click');
-  });
 }

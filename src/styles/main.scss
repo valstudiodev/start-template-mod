@@ -18,10 +18,13 @@
 @use './abstracts/mixins';
 @use './abstracts/variables';
 // ===========================================
-// ================pages==================
+// ==================pages====================
 // ===========================================
 @use '../pages/about/about.scss';
 @use '../pages/home/home.scss';
 @use '../pages/contacts/contacts.scss';
-
-
+// ===========================================
+// ==================Widgest==================
+// ===========================================
+// @use '../widgets/footer/footer.scss';
+// @use '../widgets/header/header.scss';

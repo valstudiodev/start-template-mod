@@ -1,23 +1,33 @@
 export function initContactsPage(): void {
+  console.log('Contacts page loaded');
+
+  const wrapper = document.querySelector(`.contacts__container`) as HTMLElement;
+
   const btn = document.querySelector(`.btn-cont`)
 
   btn?.addEventListener('click', () => {
     console.log('click');
   });
 
-  createButton()
+  createButton(wrapper)
 }
 
-const wrapper = document.querySelector(`.contacts__container`) as HTMLElement
 
 
-function createButton(): HTMLButtonElement {
-  const btn = document.createElement('button') as HTMLButtonElement
-  btn.textContent = 'button'
-  btn.style.width = '100px'
-  btn.style.backgroundColor = 'coral'
+function createButton(wrapper: HTMLElement): HTMLButtonElement {
+  const existing = wrapper.querySelector('button[data-dynamic="true"]');
 
-  wrapper.append(btn)
+  if (existing) return existing as HTMLButtonElement;
 
-  return btn
+  const btn = document.createElement('button');
+
+  btn.textContent = 'button';
+  btn.style.width = '100px';
+  btn.style.backgroundColor = 'coral';
+
+  btn.dataset.dynamic = 'true';
+
+  wrapper.append(btn);
+
+  return btn;
 }
