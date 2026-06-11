@@ -4,3 +4,14 @@
   background-color: lightblue;
   color: green;
 }
+
+#about-btn {
+  background-color: green;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+
+  &.active {
+    background-color: red;
+  }
+}

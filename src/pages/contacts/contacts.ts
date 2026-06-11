@@ -1,3 +1,5 @@
+import './contacts.scss'
+
 export function initContactsPage(): void {
   console.log('Contacts page loaded');
 
