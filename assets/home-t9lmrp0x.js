@@ -1,1 +1,0 @@
-function e(){console.log(`Home page loaded`)}export{e as initHomePage};
