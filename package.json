@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node time-tracker.cjs start",
     "preview": "vite preview",
     "build": "vite build",
+    "stat": "node time-tracker.cjs stat",
     "build:github": "vite build --mode github",
     "deploy": "npm run build:github && gh-pages -d dist"
   },
@@ -16,5 +17,9 @@
     "sass": "^1.100.0",
     "typescript": "~6.0.2",
     "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.5"
   }
 }
