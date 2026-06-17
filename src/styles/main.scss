@@ -17,9 +17,11 @@
 @use './abstracts/functions';
 @use './abstracts/mixins';
 @use './abstracts/variables';
+// @use './mixins/position' as *;
 // ===========================================
 // ==================pages====================
 // ===========================================
+@use '../pages/sandbox/sandbox';
 // @use '../pages/about/about.scss';
 // @use '../pages/home/home.scss';
 // @use '../pages/contacts/contacts.scss';
@@ -28,3 +30,4 @@
 // ===========================================
 // @use '../widgets/footer/footer.scss';
 // @use '../widgets/header/header.scss';
+

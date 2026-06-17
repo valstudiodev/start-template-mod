@@ -4,7 +4,12 @@ import { initApp } from "./app/initApp";
 
 console.log('MAIN LOADED');
 
-initApp()
-
-
+const run = (): void => {
+  initApp();
+};
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', run);
+} else {
+  run();
+}
 

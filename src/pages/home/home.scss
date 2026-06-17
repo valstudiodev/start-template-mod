@@ -1,12 +1,24 @@
 @use "sass:math";
 
 [data-page="home"] {
+  position: relative;
   background-color: #121212;
   color: white;
+  padding-top: 100px;
 }
 
 .btn {
   background-color: white;
   color: black;
   padding: 20px;
+}
+
+.box {
+  @include abs-center;
+  background-color: red;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  align-content: center;
 }

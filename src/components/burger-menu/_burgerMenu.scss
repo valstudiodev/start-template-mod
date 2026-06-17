@@ -1,0 +1,10 @@
+@use "sass:math";
+
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/settings/settings' as *;
+@use '../../styles/abstracts/_functions.scss' as *;
+
+.icon-menu {
+
+  @include icon-menu($width:toRem(30),$height:toRem(20));
+}

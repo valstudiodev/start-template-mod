@@ -14,6 +14,11 @@ import { setPage } from './pageManager';
 import { initInputMode } from "./inputMode";
 
 // =============================================
+// =============== Components ==================
+// =============================================
+import { initCurrentPath, burgerMenuInit, initDropdowns } from "../components";
+
+// =============================================
 // ============== initialisations ==============
 // =============================================
 import { initHeader } from "@widgets/header/header";
@@ -24,10 +29,15 @@ import { initHomePage } from '../pages/home/home';
 import { initContactsPage } from '../pages/contacts/contacts';
 
 export function initApp(): void {
-  initInputMode();
   initLoadAnimation();
+  initInputMode();
   initHeader();
   initFooter();
+  burgerMenuInit();
+  initCurrentPath();
+  initDropdowns()
+
+
   const page = document.body.dataset.page;
 
   if (page === 'about') {
@@ -67,11 +77,6 @@ export function initApp(): void {
 //   }
 // }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
-}
 
 
 

@@ -1,0 +1,24 @@
+@use "sass:math";
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/settings/settings' as *;
+@use '../../styles/abstracts/_functions.scss' as *;
+
+.sandbox {
+
+		// .sandbox__container
+		&__container {
+      padding-top: toRem(100);
+		}
+
+		// .sandbox__list
+		&__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: toRem(40);
+		}
+
+		// .sandbox__item
+		&__item {
+		}
+}

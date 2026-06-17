@@ -25,3 +25,14 @@ function cleanup(): void {
   }
 }
 
+// export type Page = 'home' | 'about' | 'contacts';
+
+// export function getCurrentPage(): Page {
+//   const path = window.location.pathname.replace('.html', '');
+
+//   if (path === '/' || path === '/index') return 'home';
+//   if (path.includes('about')) return 'about';
+//   if (path.includes('contacts')) return 'contacts';
+
+//   return 'home';
+// }

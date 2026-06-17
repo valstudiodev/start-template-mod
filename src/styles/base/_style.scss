@@ -10,6 +10,7 @@ body {
    font-family: "Poppins", sans-serif;
    line-height: 1.5;
    color: #000;
+   scrollbar-gutter: stable;
 
    &.scroll-lock {
       overflow: clip;

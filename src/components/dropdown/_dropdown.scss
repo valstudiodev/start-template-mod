@@ -1,0 +1,93 @@
+@use "sass:math";
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/settings/settings' as *;
+@use '../../styles/abstracts/_functions.scss' as *;
+
+.menu-dropdown {
+
+   // .menu-dropdown__list
+   &__list {
+      display: flex;
+      align-items: center;
+      gap: toRem(20);
+   }
+
+   // .menu-dropdown__item
+   &__item {
+
+      // .menu-dropdown__item--submenu
+      &--submenu {
+         position: relative;
+
+         &.is-active {
+            .menu-dropdown__submenu {
+               opacity: 1;
+               visibility: visible;
+               pointer-events: auto;
+               transform: translateY(0);
+            }
+         }
+      }
+   }
+
+   // .menu-dropdown__link
+   &__link {
+      padding: 10px 15px;
+      display: inline-block;
+      color: #000;
+      text-decoration: none;
+      transition: background-color 0.2s, color 0.2s;
+
+      // Hover на mouse
+      @include hover {
+         background-color: #333;
+         color: #0f0;
+      }
+
+      // Tap на touch/pen
+      // @include tap {
+      //    background-color: #555;
+      //    color: #ff0;
+      // }
+
+      // Focus на keyboard
+      @include focus {
+         outline: 2px solid #00f;
+         background-color: #222;
+      }
+   }
+
+   // .menu-dropdown__submenu
+   &__submenu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transform: translateY(-15px);
+      transition:
+         opacity .3s ease,
+         transform .3s ease,
+         visibility .3s ease;
+   }
+}
+.submenu-dropdown {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: toRem(10);
+   background-color: #444;
+   padding: 10px 0;
+   min-width: 150px;
+   z-index: 10;
+   padding-left: toRem(10);
+
+   // .submenu-dropdowne__link
+   &__link {}
+}

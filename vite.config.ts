@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
       input: {
         home: resolve(__dirname, 'index.html'),
         about: resolve(__dirname, 'about.html'),
-        contacts: resolve(__dirname, 'contacts.html'),
+        contacts: resolve(__dirname, 'contacts.html')
       },
     },
   },
@@ -23,11 +23,21 @@ export default defineConfig(({ mode }) => ({
     alias: {
       '@': resolve(__dirname, './src'),
       '@app': resolve(__dirname, './src/app'),
-      '@pages': resolve(__dirname, './src/pages'),
-      '@components': resolve(__dirname, './src/components'),
-      '@shared': resolve(__dirname, './src/shared'),
       '@assets': resolve(__dirname, './src/assets'),
+      '@components': resolve(__dirname, './src/components'),
+      '@pages': resolve(__dirname, './src/pages'),
+      '@shared': resolve(__dirname, './src/shared'),
       '@widgets': resolve(__dirname, './src/widgets')
+    },
+  },
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+        @use "@/styles/mixins/position" as *;
+      `,
+      },
     },
   },
 }));
