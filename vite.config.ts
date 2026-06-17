@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
 export default defineConfig(({ mode }) => ({
-  // base: mode === 'github' ? '/start-template-mod/' : '/',
-  base: '/start-template-mod/',
+  base: mode === 'github' ? '/start-template-mod/' : '/',
+
 
   build: {
     rollupOptions: {
@@ -32,15 +32,15 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `
-  //       @use "@/styles/mixins/position" as *;
-  //     `,
-  //     },
-  //   },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+        @use "@/styles/mixins/position" as *;
+      `,
+      },
+    },
+  },
 }));
 
 
