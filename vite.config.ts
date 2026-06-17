@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
 export default defineConfig(({ mode }) => ({
-  base: mode === 'github' ? '/start-template-mod/' : '/',
+  // base: mode === 'github' ? '/start-template-mod/' : '/',
+  base: '/start-template-mod/',
 
   build: {
     rollupOptions: {
