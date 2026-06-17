@@ -31,15 +31,15 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-        @use "@/styles/mixins/position" as *;
-      `,
-      },
-    },
-  },
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `
+  //       @use "@/styles/mixins/position" as *;
+  //     `,
+  //     },
+  //   },
+  // },
 }));
 
 
