@@ -36,8 +36,9 @@ export default defineConfig(({ mode }) => ({
     preprocessorOptions: {
       scss: {
         additionalData: `
-        @use "@/styles/mixins/position" as *;
+        @use "@/styles/mixins/_index.scss" as *;
       `,
+        includePaths: ["src"],
       },
     },
   },
